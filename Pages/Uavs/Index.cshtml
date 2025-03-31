@@ -1,0 +1,29 @@
+@page
+<link rel="stylesheet" href="/css/site.css" />
+
+
+<div class="container">
+    <h2>All UAVs</h2>
+    <a href="/Uavs/Create">➕ Register New UAV</a>
+    <ul id="uav-list"></ul>
+</div>
+
+<script>
+
+const inProgressHTTPCall = fetch('/api/uavs');
+console.log('fetch called');
+
+inProgressHTTPCall
+    .then(res => res.json())
+    .then(data => {
+        const ul = document.getElementById('uav-list');
+        console.log('inside fetch');
+        data.forEach(uav => {
+            const li = document.createElement('li');
+            li.innerHTML = `${uav.name}, ${uav.model}`
+            ul.appendChild(li);
+        });
+    });
+
+console.log('after fetch');
+</script>

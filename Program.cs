@@ -7,6 +7,7 @@ using UavApi.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services
+builder.Services.AddRazorPages();
 builder.Services.AddDbContext<UavDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -18,7 +19,8 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
+app.UseStaticFiles();
+app.MapRazorPages();
 app.UseAuthorization();
 app.MapControllers();
 

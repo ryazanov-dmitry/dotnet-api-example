@@ -1,0 +1,41 @@
+@page
+
+<link rel="stylesheet" href="/css/site.css" />
+
+<div class="container">
+    <h2>Register UAV</h2>
+    <form id="register-form">
+        <label>Name:</label>
+        <input type="text" name="name" placeholder="e.g., Eagle-1" required />
+
+        <label>Model:</label>
+        <input type="text" name="model" placeholder="e.g., DJI M300" required />
+
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+
+<script>
+document.getElementById('register-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const data = {
+    name: form.name.value,
+    model: form.model.value
+  };
+
+  const res = await fetch('/api/uavs/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+  if (res.ok) {
+    alert('UAV registered!');
+    window.location.href = '/Uavs';
+  } else {
+    alert('Registration failed');
+  }
+});
+</script>
